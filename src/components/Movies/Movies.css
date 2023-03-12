@@ -1,0 +1,23 @@
+.movies__btn {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    background: #F9F9F9;
+    border-radius: 6px;
+    border: none;
+    padding: 11px 0 9px 0;
+    margin: 0 70px 80px 70px;
+    height: 16px;
+    box-sizing: border-box;
+    width: calc(100% - 140px);
+    height: 36px;
+}
+
+@media screen and (max-width: 768px) {
+    .movies__btn {
+        width: calc(100% - 60px);
+        margin: 70px 30px 80px 30px;
+    }
+}

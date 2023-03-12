@@ -1,7 +1,2 @@
 @import url(../src/vendor/normalize.css);
 @import url(../src/vendor/fonts.css);
-
-.root {
-  font-family: 'Inter', Arial, sans-serif;
-  max-width: 1280px;
-}

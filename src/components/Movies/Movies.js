@@ -9,11 +9,13 @@ function Movies() {
     return(
         <>
             <Header/>
-            <SearchForm/>
-            <MoviesCardList
-                movies={movies} 
-            />
-            <button className="movies__btn" type="button">Ещё</button>
+            <main className="main"> 
+                <SearchForm/>
+                <MoviesCardList
+                    movies={movies} 
+                />
+                <button className="movies__btn" type="button">Ещё</button>
+            </main>
             <Footer />
         </>
     )

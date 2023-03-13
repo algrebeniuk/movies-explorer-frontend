@@ -5,7 +5,7 @@ function Profile() {
     return(
         <>
             <Header/>
-            <section className="profile">
+            <main className="profile">
                 <h2 className="profile__name">Привет, Виталий!</h2>
                 <form className="profile__form">
                     <fieldset className="profile__fieldset">
@@ -27,7 +27,7 @@ function Profile() {
                     <button className="profile__btn profile__btn_type_edit" type="submit">Редактировать</button>
                     <button className="profile__btn profile__btn_type_logout" type="submit">Выйти из аккаунта</button>
                 </form>
-            </section>
+            </main>
         </>
     )
 }

@@ -9,11 +9,12 @@ function SavedMovies() {
     return(
         <>
             <Header/>
-            <SearchForm/>
-            <MoviesCardList
-                movies={savedMovies} 
-            />
-            <button className="movies__btn" type="button">Ещё</button>
+            <main className="main">
+                <SearchForm/>
+                <MoviesCardList
+                    movies={savedMovies} 
+                />
+            </main>
             <Footer/>
         </>
     )

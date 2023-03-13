@@ -1,0 +1,24 @@
+.movies {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    padding: 70px 70px 10px;
+    margin: 0;
+}
+
+.movies_saved {
+    margin-bottom: 140px;
+}
+
+@media screen and (max-width: 768px) {
+    .movies {
+        padding: 60px 30px 30px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .movies {
+        padding: 50px 10px 0;
+        row-gap: 20px;
+    }
+}

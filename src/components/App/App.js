@@ -9,8 +9,26 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import { useEffect, useState } from 'react';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
+
+    const[movie, setMovie] = useState([]);
+
+    function searchMovies() {
+      moviesApi.getMovies()
+        .then((movie) => {
+          setMovie(movie)
+        })  
+        .catch((err) => console.log(err))
+    }
+
+    function handleSubmit(evt) {
+      evt.preventDefault();
+      searchMovies();
+    }
+
     return (
         <>
             <Switch>
@@ -18,7 +36,10 @@ function App() {
                   <Main/>
                 </Route>    
                 <Route path="/movies">
-                  <Movies/>
+                  <Movies
+                    handleSubmit={handleSubmit}
+                    movies={movie}
+                  />
                 </Route>
                 <Route path="/saved-movies">
                   <SavedMovies/>

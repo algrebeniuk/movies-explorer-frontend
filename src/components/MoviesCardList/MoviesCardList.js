@@ -5,14 +5,14 @@ import '../MoviesCardList/MoviesCardList.css';
 function MoviesCardList( {movies} ) {
     const { pathname } = useLocation();
     return(
-        <section className={`${pathname === '/movies' ? "movies" : "movies movies_saved"}`}>
+        <section className={`${pathname === "/movies" ? "movies" : "movies movies_saved"}`}>
             {movies.map((movie) => {
                 return(
                     <MoviesCard 
-                        key={movie._id}
-                        name={movie.name}
+                        key={movie.id}
+                        name={movie.nameRU}
                         duration={movie.duration}
-                        image={movie.image}
+                        image={`https://api.nomoreparties.co/${movie.image.url}`}
                         like={movie.like}
                     />
                 )

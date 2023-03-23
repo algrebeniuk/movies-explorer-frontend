@@ -5,12 +5,13 @@ import { movies } from '../../utils/utils';
 import Footer from "../Footer/Footer";
 import '../Movies/Movies.css';
 
-function Movies() {
+function Movies({handleSubmit, movies}) {
+
     return(
         <>
             <Header/>
             <main className="main"> 
-                <SearchForm/>
+                <SearchForm onSubmit={handleSubmit}/>
                 <MoviesCardList
                     movies={movies} 
                 />

@@ -19,14 +19,27 @@ function App() {
     function searchMovies() {
       moviesApi.getMovies()
         .then((movie) => {
-          setMovie(movie)
+          //setMovie(movie) 
+          moviesNumber(movie);
         })  
         .catch((err) => console.log(err))
     }
 
-    function handleSubmit(evt) {
+    function handleSearchMovies(evt) {
       evt.preventDefault();
       searchMovies();
+    }
+
+   /* function handleSearchMoreMovies() {
+      return setMovie
+    }*/
+
+    function moviesNumber(movie) {
+      if  (window.innerWidth > 570) {
+        setMovie(movie.slice(0, 7))
+      } else {
+        setMovie(movie.slice(0, 5))
+      }
     }
 
     return (
@@ -37,8 +50,9 @@ function App() {
                 </Route>    
                 <Route path="/movies">
                   <Movies
-                    handleSubmit={handleSubmit}
+                    handleSearchMovies={handleSearchMovies}
                     movies={movie}
+                    handleSearchMoreMovies={handleSearchMoreMovies}
                   />
                 </Route>
                 <Route path="/saved-movies">

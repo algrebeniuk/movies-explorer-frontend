@@ -5,17 +5,17 @@ import { movies } from '../../utils/utils';
 import Footer from "../Footer/Footer";
 import '../Movies/Movies.css';
 
-function Movies({handleSubmit, movies}) {
+function Movies({handleSearchMovies, movies, handleSearchMoreMovies}) {
 
     return(
         <>
             <Header/>
             <main className="main"> 
-                <SearchForm onSubmit={handleSubmit}/>
+                <SearchForm onSubmit={handleSearchMovies}/>
                 <MoviesCardList
                     movies={movies} 
                 />
-                <button className="movies__btn" type="button">Ещё</button>
+                <button className="movies__btn" type="button" onClick={handleSearchMoreMovies}>Ещё</button>
             </main>
             <Footer />
         </>

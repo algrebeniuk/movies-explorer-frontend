@@ -15,30 +15,38 @@ import { moviesApi } from '../../utils/MoviesApi';
 function App() {
 
     const[movie, setMovie] = useState([]);
+    const[addedMovie, setAddedMovie] = useState(0);
 
-    function searchMovies() {
+    function searchMovies(movieName) {
       moviesApi.getMovies()
         .then((movie) => {
-          //setMovie(movie) 
-          moviesNumber(movie);
+          const renderedMovies = movie.filter((movies) => 
+            movies.nameRU.toLowerCase().includes(movieName.toLowerCase())
+          ) 
+          localStorage.setItem('movieName', movieName)
+          localStorage.setItem('renderedMovies', JSON.stringify(renderedMovies))
+          moviesNumber();
         })  
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err)) 
     }
 
-    function handleSearchMovies(evt) {
-      evt.preventDefault();
-      searchMovies();
+    function handleSearchMovies(movieName) {
+      searchMovies(movieName);
     }
 
-   /* function handleSearchMoreMovies() {
-      return setMovie
-    }*/
+    function handleSearchMoreMovies() {
+      const renderedMovies = JSON.parse(localStorage.getItem('renderedMovies'));
+      setMovie(renderedMovies.slice(0, movie.length + addedMovie));
+    }
 
-    function moviesNumber(movie) {
+    function moviesNumber() {
+      const renderedMovies = JSON.parse(localStorage.getItem('renderedMovies'));
       if  (window.innerWidth > 570) {
-        setMovie(movie.slice(0, 7))
+        setMovie(renderedMovies.slice(0, 7));
+        setAddedMovie(7);
       } else {
-        setMovie(movie.slice(0, 5))
+        setMovie(renderedMovies.slice(0, 5));
+        setAddedMovie(5);
       }
     }
 
@@ -53,6 +61,7 @@ function App() {
                     handleSearchMovies={handleSearchMovies}
                     movies={movie}
                     handleSearchMoreMovies={handleSearchMoreMovies}
+                    value={localStorage.getItem('movieName')  }
                   />
                 </Route>
                 <Route path="/saved-movies">

@@ -4,12 +4,20 @@ import '../MoviesCard/MoviesCard.css';
 function MoviesCard( {name, duration, image, like} ) {
     const { pathname } = useLocation();
 
+    function setDuration() {
+        if (duration / 60 >= 1) {
+            return Math.floor(duration / 60) + 'ч ' + duration % 60 + 'м';
+        } else {
+            return duration + 'м';
+        }
+    } 
+
     return(
         <article className="movie">
             <div className="movie__info">
                 <div className="movie__info_container">
                     <h2 className="movie__name">{name}</h2>
-                    <p className="movie__duration">{duration}</p>
+                    <p className="movie__duration">{setDuration()}</p>
                 </div>
                 {pathname === '/movies' ? (
                     <button className={`${like ? "movie__like movie__like_active" : "movie__like" }`} type="button" ></button>

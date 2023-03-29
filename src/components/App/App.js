@@ -16,22 +16,29 @@ function App() {
 
     const[movie, setMovie] = useState([]);
     const[addedMovie, setAddedMovie] = useState(0);
+    const[preloader, setPreloader] = useState(false);
+    const[serverError, setServerError] = useState(false);
+    const[notFoundMovies, setNotFoundMovies] = useState(false);
 
-    function searchMovies(movieName) {
+    function searchMovie(movieName, shortMovie) {
+      setPreloader(true);
+      setNotFoundMovies(false);
       moviesApi.getMovies()
-        .then((movie) => {
-          const renderedMovies = movie.filter((movies) => 
-            movies.nameRU.toLowerCase().includes(movieName.toLowerCase())
-          ) 
-          localStorage.setItem('movieName', movieName)
-          localStorage.setItem('renderedMovies', JSON.stringify(renderedMovies))
-          moviesNumber();
-        })  
-        .catch((err) => console.log(err)) 
-    }
-
-    function handleSearchMovies(movieName) {
-      searchMovies(movieName);
+        .then((movies) => {
+          const searchedMovies = movies.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()));
+          const renderedMovies = shortMovie ? searchedMovies.filter((item) => item.duration <= 40) : searchedMovies;
+          localStorage.setItem('renderedMovies', JSON.stringify(renderedMovies));
+          localStorage.setItem('movieName', movieName);
+          localStorage.setItem('shortMovie', shortMovie);
+          setPreloader(false);
+          setNotFoundMovies(true);
+          moviesNumber()
+        })
+        .catch((err) => {
+          console.log(err);
+          setPreloader(false);
+          setServerError(true);
+        })
     }
 
     function handleSearchMoreMovies() {
@@ -50,6 +57,10 @@ function App() {
       }
     }
 
+    function handleSearchMovie(movieName, shortMovie) {
+      searchMovie(movieName, shortMovie);
+    }  
+
     return (
         <>
             <Switch>
@@ -58,10 +69,14 @@ function App() {
                 </Route>    
                 <Route path="/movies">
                   <Movies
-                    handleSearchMovies={handleSearchMovies}
-                    movies={movie}
-                    handleSearchMoreMovies={handleSearchMoreMovies}
-                    value={localStorage.getItem('movieName')  }
+                    handleSearchMovie={handleSearchMovie}
+                    inputValue={localStorage.getItem('movieName') || ""}
+                    checkboxValue={localStorage.getItem('shortMovie') || ""}
+                    movies={movie} 
+                    handleShowMore={handleSearchMoreMovies}
+                    serverError={serverError}
+                    preloader={preloader}
+                    notFoundMovies={notFoundMovies}
                   />
                 </Route>
                 <Route path="/saved-movies">

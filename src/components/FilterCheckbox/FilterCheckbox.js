@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import '../FilterCheckbox/FilterCheckbox.css';
 
-function FilterCheckbox() {
+function FilterCheckbox( {handleChangeCheckbox} ) {
+
     return(
-        <div className="filter-checkbox">
-            <label className="filter-checkbox__container">
+        <div className="filter-checkbox" >
+            <label className="filter-checkbox__container" checked={false || true} onChange={handleChangeCheckbox}>
 	            <input type="checkbox" />
 	            <span className="filter-checkbox__switch"></span>
             </label>
@@ -13,3 +15,4 @@ function FilterCheckbox() {
 }
 
 export default FilterCheckbox;
+

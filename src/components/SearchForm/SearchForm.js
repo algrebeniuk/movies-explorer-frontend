@@ -2,30 +2,40 @@ import { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import '../SearchForm/SearchForm.css';
 
-function SearchForm( {onSubmit, value} ) {
+function SearchForm( {handleSearchMovie, inputValue, checkboxValue} ) {
 
     const[movieName, setMovieName] = useState('');
+    const[checkbox, setCheckbox] = useState(false);
 
     function handleChange(evt) {
         setMovieName(evt.target.value);
     }
 
-    function handleSubmit(evt) {
-        evt.preventDefault();
-        onSubmit(movieName);
-    }
+    function handleChangeCheckbox(e) {
+        const shortMovie = e.target.checked;
+        setCheckbox(shortMovie);
+        handleSearchMovie(movieName, shortMovie);
+      }
 
-    useEffect(() =>{
-        setMovieName(value)
-    }, [value])
+      function handleSubmit(e) {
+        e.preventDefault();
+        handleSearchMovie(movieName, checkbox);
+      }
+
+      useEffect(() => {
+        setMovieName(inputValue);
+        setCheckbox(checkboxValue);
+      }, [])
 
     return(
-        <section className="search">
-            <form className="search-form" onSubmit={handleSubmit}>
+        <section className="search" onSubmit={handleSubmit}>
+            <form className="search-form">
                 <input className="search-form__input" type="text" placeholder="Фильм" onChange={handleChange} value={movieName || ""} required></input>
-                <button className="search-form__btn" type="submit">Поиск</button>
+                <button className="search-form__btn" type="submit" onSubmit={handleSubmit}>Поиск</button>
             </form>
-            <FilterCheckbox/>
+            <FilterCheckbox
+                handleChangeCheckbox={handleChangeCheckbox}
+            />
         </section>
     )
 }

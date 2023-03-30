@@ -9,7 +9,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {

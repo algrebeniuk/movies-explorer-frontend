@@ -6,10 +6,10 @@ import AboutMe from '../AboutMe/AboutMe';
 import AboutProject from '../AboutProject/AboutProject';
 import Footer from '../Footer/Footer';
 
-function Main() {
+function Main({loggedIn}) {
     return(
         <>
-            <Header/> 
+            <Header loggedIn={loggedIn}/> 
             <main className="main">
                 <Promo/>
                 <AboutProject/>

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import HeaderLogo from '../../images/header-logo.svg';
 
-function Header() {
+function Header({loggedIn}) {
   const { pathname } = useLocation();
 
   return (
@@ -11,12 +11,15 @@ function Header() {
             <Link to="/" className="header__link-logo">
               <img className="header__logo" alt="Логотип" src={HeaderLogo} />
             </Link>
-            {pathname !== '/' ? <Navigation/> :
-            <div className="header__links">
-              <Link className="header__link" to="/signup">Регистарция</Link>
-              <Link className="header__link header__link_button" to="/signin">Войти</Link>
-            </div>
-          }
+            {pathname !== '/'
+            ? (<Navigation/>) 
+            : (loggedIn ? <Navigation/> :
+                <div className="header__links">
+                  <Link className="header__link" to="/signup">Регистарция</Link>
+                  <Link className="header__link header__link_button" to="/signin">Войти</Link>
+                </div>
+              )
+            }
       </header>
   
     

@@ -1,22 +1,19 @@
 import AuthForm from "../AuthForm/AuthForm";
 import LoginForm from "../LoginForm/LoginForm";
+import {useFormWithValidation} from '../FormValidation/FormValidation';
 
-function Login() {
+function Login({onLogin, errorMessage}) {
+
     return(
         <>
             <main className="main">
-                <AuthForm
-                    title='Рады видеть!'
-                    path='/signup'
-                    link='Регистрация'
-                    isRegistered='Ещё не зарегистрированы?'
-                    btnText='Войти'
-                >
+               
                     <LoginForm
-                        errorText='Что-то пошло не так...'
+                        errorMessage={errorMessage}
+                        onLogin={onLogin}
                     >
                     </LoginForm>
-                </AuthForm>
+                
             </main>
         </>
     )

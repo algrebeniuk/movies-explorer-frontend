@@ -10,6 +10,7 @@ import './Movies.css';
 function Movies( {handleSearchMovie, inputValue, movies, handleShowMore, serverError, preloader, notFoundMovies, checkboxValue} ) {
 
     const renderedMovies = JSON.parse(localStorage.getItem('renderedMovies'));
+    
     return(
         <>
             <Header/>
@@ -39,3 +40,5 @@ function Movies( {handleSearchMovie, inputValue, movies, handleShowMore, serverE
 }
 
 export default Movies;
+
+//className={`${((renderedMovies.length <=  movies.length) || (movies.length === 0)) ? "movies__btn_blocked" : "movies__btn"}`} 

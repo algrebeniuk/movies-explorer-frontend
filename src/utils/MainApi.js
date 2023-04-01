@@ -1,68 +1,62 @@
+export const url = 'http://localhost:3002'; 
+
 class MainApi {
-    constructor({url}) {
+    constructor(url) {
       this._url = url;
     }
   
     _checkResponse (res) {
         return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
     }
-  
-    async register({password, email, name}) {
+
+    async register(user) {
         const res = await fetch(`${this._url}/signup`, {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                password,
-                email,
-                name
-            })
-        });
-        return this._checkResponse(res);
-    };
-  
-    async login({password, email}) {
-      const res = await fetch(`${this._url}/signin`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
+                email: user.email,
+                password: user.password,
+                name: user.name
             }),
         });
-        const data = this._checkResponse(res);
-        localStorage.setItem('jwt', data.token);
-        return data;
+        return this._checkResponse(res);
     };
-  
+
+    async login(user) {
+        const res = await fetch(`${this._url}/signin`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: user.email,
+                password: user.password,
+            }),
+        });
+        if (res.token) {
+            localStorage.setItem('jwt', res.token);
+            return res;
+        }  
+        return this._checkResponse(res);
+    };
+
     async checkToken(jwt) {
-      const res = await fetch(`${this._url}/users/me`, {
+        const res = await fetch(`${this._url}/users/me`, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwt}`,
+                'Content-Type': 'application/json'
             },
         });
         return this._checkResponse(res);
     };
   
-    async editProfile({name, email}) {
-      const res = await fetch(`${this._url}/users/me`, {
-            method: 'PATCH',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name,
-                email
-            })
+    async editUser(name, email) {
+        const res = await fetch(`${this._url}/users/me`, {
+              method: 'PATCH',
+              headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ name, email })
         });
         return this._checkResponse(res);
     }
@@ -103,8 +97,10 @@ class MainApi {
         return this._checkResponse(res);
     }
   
-  }
-  
-export const mainApi = new MainApi({
-     url: 'http://localhost:3000'
-})
+}
+
+const mainApi = new MainApi(
+    url,
+);
+
+export default mainApi;

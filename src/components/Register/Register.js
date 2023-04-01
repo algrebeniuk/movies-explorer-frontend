@@ -1,22 +1,19 @@
 import AuthForm from "../AuthForm/AuthForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import {useFormWithValidation} from '../FormValidation/FormValidation'
 
-function Register() {
+function Register({onRegister, errorMessage}) {
+    
     return(
         <>
             <main className="main">
-                <AuthForm
-                    title='Добро пожаловать!'
-                    path='/signin'
-                    link='Войти'
-                    isRegistered='Уже зарегистрированы?'
-                    btnText='Зарегистрироваться'
-                >
+                
                     <RegisterForm
-                        errorText='Что-то пошло не так...'
+                        errorMessage={errorMessage}
+                        onRegister={onRegister}
                     >
                     </RegisterForm>
-                </AuthForm>
+                
             </main>
         </>
     )

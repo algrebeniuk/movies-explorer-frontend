@@ -6,36 +6,35 @@ function SearchForm( {handleSearchMovie, inputValue, checkboxValue} ) {
 
     const[movieName, setMovieName] = useState('');
     const[checkbox, setCheckbox] = useState(false);
-
+    
     function handleChange(evt) {
         setMovieName(evt.target.value);
     }
 
-    function handleChangeCheckbox(e) {
-        const shortMovie = e.target.checked;
-        setCheckbox(shortMovie);
-        handleSearchMovie(movieName, shortMovie);
-      }
+    function handleChangeCheckbox(evt) {
+        setCheckbox(evt.target.checked);
+    }
 
-      function handleSubmit(e) {
-        e.preventDefault();
-        handleSearchMovie(movieName, checkbox);
-      }
+    function handleSubmit(evt) {
+      evt.preventDefault();
+      handleSearchMovie(movieName, checkbox);
+    }
 
-      useEffect(() => {
-        setMovieName(inputValue);
-        setCheckbox(checkboxValue);
-      }, [])
+    useEffect(() => {
+      setMovieName(inputValue);
+      setCheckbox(checkboxValue); 
+    }, [inputValue, checkboxValue])
 
     return(
-        <section className="search" onSubmit={handleSubmit}>
-            <form className="search-form">
-                <input className="search-form__input" type="text" placeholder="Фильм" onChange={handleChange} value={movieName || ""} required></input>
-                <button className="search-form__btn" type="submit" onSubmit={handleSubmit}>Поиск</button>
+        <section className="search">
+            <form className="search-form" onClick={handleSubmit}>
+                <input className="search-form__input" type="text" placeholder="Фильм" onChange={handleChange} value={movieName || ""} required></input>  
+                <button className="search-form__btn" type="submit">Поиск</button>
             </form>
             <FilterCheckbox
                 handleChangeCheckbox={handleChangeCheckbox}
-            />
+                checkbox={checkbox}
+            /> 
         </section>
     )
 }

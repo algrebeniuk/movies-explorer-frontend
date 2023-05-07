@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import '../MoviesCard/MoviesCard.css';
 
 function MoviesCard( {name, duration, image, like} ) {

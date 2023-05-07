@@ -1,7 +1,7 @@
 export const url = 'https://api.nomoreparties.co/beatfilm-movies'; 
 
 class MoviesApi {
-    constructor({url}) {
+    constructor(url) {
       this._url = url;
     }
   
@@ -17,7 +17,7 @@ class MoviesApi {
             method: 'GET',
             headers: { "Content-Type": "application/json" } 
         });
-        return this._serverСorrectness(res);
+      return this._serverСorrectness(res);
     }
 }  
 

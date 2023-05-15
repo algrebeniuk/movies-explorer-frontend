@@ -99,7 +99,7 @@ function App() {
     } 
     
     return (
-      <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+      <CurrentUserContext.Provider value={{currentUser}}>
             <Switch>
                 <Route exact path="/">
                   <Main loggedIn={loggedIn}/>

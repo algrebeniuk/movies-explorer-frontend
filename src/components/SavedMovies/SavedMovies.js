@@ -29,11 +29,25 @@ function SavedMovies() {
          .catch((err) => console.log(err));
     }, []);
 
+    function searcheMovies(movieName, shortMovie) {
+        console.log(movieName, shortMovie)
+        const searchedMovies = savedMovies.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()));
+        if(shortMovie) {
+            setSavedMovies(searchedMovies.filter((item) => item.duration <= 40));
+        } else {
+            setSavedMovies(searchedMovies);
+        }
+    }
+
     return(
         <>
             <Header/>
             <main className="main">
-                <SearchForm/>
+                <SearchForm
+                    handleSearchMovie={searcheMovies}
+                    inputValue={""}
+                    checkboxValue={false}
+                />
                 <MoviesCardList
                     movies={savedMovies} 
                     handleDelete={handleDelete}

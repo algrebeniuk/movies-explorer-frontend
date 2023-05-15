@@ -64,7 +64,6 @@ function Movies() {
          .then((likedMovie) => {
             const savedMoviesArray = [...savedMovies, likedMovie]
             setSavedMovies(savedMoviesArray);
-            console.log(savedMoviesArray);
             localStorage.setItem('savedMovies', JSON.stringify(savedMoviesArray));
          }) 
          .catch((err) => {
@@ -74,7 +73,6 @@ function Movies() {
 
     function handleDislikeMovie(movie) {
         const dislikeMovie = savedMovies.find((likedMovie) => likedMovie.movieId === movie.id);
-       // const movieId = dislikeMovie._id;
         mainApi.deleteMovie(dislikeMovie._id)
          .then(() => {
             const savedMoviesArray = savedMovies.filter((likedMovie) => likedMovie.movieId !== movie.id);

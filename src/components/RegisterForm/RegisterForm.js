@@ -69,9 +69,8 @@ function RegisterForm( {onRegister, errorMessage} ) {
                 />
                 <span className={`${errors.password ? "register-form__error register-form__error_active" : "register-form__error"}`}>Что-то пошло не так...</span>
             </fieldset>
-            <button className="register__btn" type="submit" disabled={!isValid}>Зарегистрироваться
-                <span className="register__server-response">{errorMessage}</span>
-            </button>
+            <span className="register__server-response">{errorMessage}</span>
+            <button className="register__btn" type="submit" disabled={!isValid}>Зарегистрироваться</button>
         </form>
         <div className="auth__container-link">
                 <p className="auth__link-text">Уже зарегистрированы?</p>

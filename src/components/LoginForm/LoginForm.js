@@ -52,9 +52,8 @@ function LoginForm( {onLogin, errorMessage} ) {
                 />
                 <span className={`${errors.password ? "register-form__error register-form__error_active" : "register-form__error"}`}>Что-то пошло не так...</span>
             </fieldset>
-            <button className="register__btn register__btn_type_login" type="submit" disabled={!isValid}>Войти
-                <span className="register__server-response">{errorMessage}</span>
-            </button>
+            <span className="register__server-response">{errorMessage}</span>
+            <button className="register__btn register__btn_type_login" type="submit" disabled={!isValid}>Войти</button>
         </form>
         <div className="auth__container-link">
             <p className="auth__link-text">Ещё не зарегистрированы?</p>

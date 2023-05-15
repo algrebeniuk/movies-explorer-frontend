@@ -27,9 +27,9 @@ function SearchForm( {handleSearchMovie, inputValue, checkboxValue} ) {
 
     return(
         <section className="search">
-            <form className="search-form" onClick={handleSubmit}>
-                <input className="search-form__input" type="text" placeholder="Фильм" onChange={handleChange} value={movieName || ""} required></input>  
-                <button className="search-form__btn" type="submit">Поиск</button>
+            <form className="search-form">
+                <input className="search-form__input" type="text" placeholder="Фильм" onChange={handleChange} value={movieName} required></input>  
+                <button className="search-form__btn" type="submit" onClick={handleSubmit}>Поиск</button>
             </form>
             <FilterCheckbox
                 handleChangeCheckbox={handleChangeCheckbox}

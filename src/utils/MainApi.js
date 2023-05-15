@@ -62,37 +62,47 @@ class MainApi {
     }
   
     async addMovie(movie) {
-      const res = await fetch(`${this._url}/movies`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                movie
-            })
+        const res = await fetch(`${this._url}/movies`, {
+              method: 'POST',
+              headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  country: movie.country || "No data",
+                  director: movie.director || "No data",
+                  duration: movie.duration || 0,
+                  year: movie.year || 0,
+                  description: movie.description || "No data",
+                  image: `https://api.nomoreparties.co/${movie.image.url}`,
+                  trailerLink: movie.trailerLink,
+                  thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+                  movieId: movie.id,
+                  nameRU: movie.nameRU,
+                  nameEN: movie.nameEN || "No data",
+              })
         });
         return this._checkResponse(res);
     }
   
     async getMovies() {
-      const res = await fetch(`${this._url}/movies`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
+        const res = await fetch(`${this._url}/movies`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+            'Content-Type': 'application/json'
+          },
         });
         return this._checkResponse(res);
     }
   
     async deleteMovie(movieId) {
-      const res = await fetch(`${this._url}/movies/${movieId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
+        const res = await fetch(`${this._url}/movies/${movieId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+            'Content-Type': 'application/json'
+          },
         });
         return this._checkResponse(res);
     }

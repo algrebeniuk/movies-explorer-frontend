@@ -7,10 +7,12 @@ import Preloader from "../Preloader/Preloader";
 import './Movies.css';
 import moviesApi from "../../utils/MoviesApi";
 import { useEffect, useState } from "react";
+import mainApi from "../../utils/MainApi";
 
 function Movies() {
 
     const[movie, setMovie] = useState([]);
+    const[savedMovies, setSavedMovies] = useState([]);
     const[addedMovie, setAddedMovie] = useState(0);
     const[preloader, setPreloader] = useState(false);
     const[serverError, setServerError] = useState(false);
@@ -28,7 +30,7 @@ function Movies() {
             localStorage.setItem('shortMovie', shortMovie);
             setPreloader(false);
             setNotFoundMovies(true);
-            moviesNumber()
+            moviesNumber();
          })
          .catch((err) => {
             console.log(err);
@@ -57,11 +59,51 @@ function Movies() {
         searcheMovies(movieName, shortMovie);
     } 
 
-    useEffect(() => {
+    function handleLikeMovie(movies) {
+        mainApi.addMovie(movies)    
+         .then((likedMovie) => {
+            const savedMoviesArray = [...savedMovies, likedMovie]
+            setSavedMovies(savedMoviesArray);
+            console.log(savedMoviesArray);
+            localStorage.setItem('savedMovies', JSON.stringify(savedMoviesArray));
+         }) 
+         .catch((err) => {
+            console.log(err);
+         })    
+    }
+
+    function handleDislikeMovie(movie) {
+        const dislikeMovie = savedMovies.find((likedMovie) => likedMovie.movieId === movie.id);
+       // const movieId = dislikeMovie._id;
+        mainApi.deleteMovie(dislikeMovie._id)
+         .then(() => {
+            const savedMoviesArray = savedMovies.filter((likedMovie) => likedMovie.movieId !== movie.id);
+            setSavedMovies(savedMoviesArray);
+            localStorage.setItem('savedMovies', JSON.stringify(savedMoviesArray));
+         })
+         .catch((err) => {
+            console.log(err);
+         }) 
+    }
+
+    function checkRenderedMovies() {
         if (JSON.parse(localStorage.getItem('renderedMovies')) != null) {
             setMovie( JSON.parse(localStorage.getItem('renderedMovies')) )
-        } 
+        }
+    }
+    
+    useEffect(() => {
+        checkRenderedMovies();
     }, [])
+
+    useEffect(() => {
+        mainApi.getMovies()
+         .then((movie) => {
+            localStorage.setItem('savedMovies', JSON.stringify(movie));
+            setSavedMovies(movie);
+         })
+         .catch((err) => console.log(err));
+    }, []);
 
     return(
         <>
@@ -77,9 +119,14 @@ function Movies() {
                 {serverError && <span className="movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</span>}
                 <MoviesCardList 
                     movies={movie}
+                    like={handleLikeMovie}
+                    dislike={handleDislikeMovie}
                 />
                 <button 
-                    className={`${((JSON.parse(localStorage.getItem('renderedMovies')).length <=  movie.length) || (movie.length === 0)) ? "movies__btn_blocked" : "movies__btn"}`} 
+                    className={JSON.parse(localStorage.getItem('renderedMovies')) != null 
+                                ? (`${((JSON.parse(localStorage.getItem('renderedMovies')).length <=  movie.length) || (movie.length === 0)) ? "movies__btn_blocked" : "movies__btn"}` )
+                                : "movies__btn_blocked"
+                              } 
                     type="button"  
                     onClick={handleSearchMoreMovies} 
                 >
@@ -92,5 +139,3 @@ function Movies() {
 }
 
 export default Movies;
-
-              

@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import '../MoviesCardList/MoviesCardList.css'; 
 
-function MoviesCardList( {movies} ) {
+function MoviesCardList( {movies, like, dislike, handleDelete} ) {
     const { pathname } = useLocation();
     
     return(
@@ -10,11 +10,14 @@ function MoviesCardList( {movies} ) {
             {movies.map((movie) => {
                 return(
                     <MoviesCard 
-                        key={movie.id}
-                        name={movie.nameRU}
+                        key={`${pathname === "/movies" ? movie.id : movie.movieId}`}
+                        name={movie.nameRU} 
                         duration={movie.duration}
-                        image={`https://api.nomoreparties.co/${movie.image.url}`}
-                        like={movie.like}
+                        image={`${pathname === "/movies" ? `https://api.nomoreparties.co/${movie.image.url}` : movie.image}`}
+                        like={like}
+                        dislike={dislike}
+                        movie={movie}
+                        handleDelete={handleDelete}
                     />
                 )
             })}

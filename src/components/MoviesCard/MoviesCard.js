@@ -1,9 +1,9 @@
 
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import '../MoviesCard/MoviesCard.css';
 import { useEffect, useState } from 'react';
 
-function MoviesCard( {name, duration, image, like, movie, dislike, handleDelete} ) {
+function MoviesCard( {name, duration, image, like, movie, dislike, handleDelete, trailer} ) {
     const { pathname } = useLocation();
     const[isLiked, setLiked] = useState(false);
 
@@ -59,7 +59,9 @@ function MoviesCard( {name, duration, image, like, movie, dislike, handleDelete}
                 )    
                 }
             </div>
-            <img className="movie__img" alt={`Постер к фильму "${name}"`} src={image}/>
+            <a target="_blank" href={`${trailer}`} rel="noreferrer">
+                <img className="movie__img" alt={`Постер к фильму "${name}"`} src={image}/> 
+            </a>
         </article>
     )
 }

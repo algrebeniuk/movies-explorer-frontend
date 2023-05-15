@@ -18,6 +18,7 @@ function MoviesCardList( {movies, like, dislike, handleDelete} ) {
                         dislike={dislike}
                         movie={movie}
                         handleDelete={handleDelete}
+                        trailer={movie.trailerLink}
                     />
                 )
             })}

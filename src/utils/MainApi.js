@@ -1,4 +1,6 @@
-export const url = 'http://localhost:3002'; 
+export const url = 'api.algrebeniuk.diplom.nomoredomains.work'; 
+//'http://localhost:3002';
+
 
 class MainApi {
     constructor(url) {

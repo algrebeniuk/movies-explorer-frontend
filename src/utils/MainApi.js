@@ -1,4 +1,4 @@
-export const url = 'api.algrebeniuk.diplom.nomoredomains.work'; 
+export const url = 'https://api.algrebeniuk.diplom.nomoredomains.work/'; 
 //'http://localhost:3002';
 
 

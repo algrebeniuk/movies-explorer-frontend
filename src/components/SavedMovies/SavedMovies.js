@@ -13,7 +13,7 @@ function SavedMovies() {
     function handleDelete(movie) {
         mainApi.deleteMovie(movie._id)
           .then(() => {
-            const savedMoviesArray = savedMovies.filter((likedMovie) => likedMovie._id !== movie._id);
+            const savedMoviesArray = JSON.parse(localStorage.getItem('savedMovies')).filter((likedMovie) => likedMovie._id !== movie._id);
             localStorage.setItem('savedMovies', JSON.stringify(savedMoviesArray));
             setSavedMovies(savedMoviesArray);
           })
@@ -30,8 +30,8 @@ function SavedMovies() {
     }, []);
 
     function searcheMovies(movieName, shortMovie) {
-        console.log(movieName, shortMovie)
-        const searchedMovies = savedMovies.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()));
+      // const searchedMovies = savedMovies.filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()));
+        const searchedMovies = JSON.parse(localStorage.getItem('savedMovies')).filter((item) => item.nameRU.toLowerCase().includes(movieName.toLowerCase()));
         if(shortMovie) {
             setSavedMovies(searchedMovies.filter((item) => item.duration <= 40));
         } else {

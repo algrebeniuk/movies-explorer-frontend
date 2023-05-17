@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 function Profile({handleEditProfile, handleLogOut, errorMessage, successMessage}) {
 
     const { currentUser } = useContext(CurrentUserContext);
-    const { values, errors, isValid, handleChange, setValues } = useFormWithValidation();
+    const { values, isValid, handleChange, setValues } = useFormWithValidation();
     const[valueChange, setValueChange] = useState(true);
 
     useEffect(() => {
@@ -23,11 +23,9 @@ function Profile({handleEditProfile, handleLogOut, errorMessage, successMessage}
           name: values.name,
           email: values.email 
         });
-       /* if(isValid) {
-            setValueChange(true);
-            console.log(isValid)
-        }*/
     }
+
+    const btnStatus = isValid && (values.name !== currentUser.name || values.email !== currentUser.email)
 
     function editProfile() {
         setValueChange(false);
@@ -62,6 +60,7 @@ function Profile({handleEditProfile, handleLogOut, errorMessage, successMessage}
                             type="email"
                             value={values.email || ""}
                             onChange={handleChange}
+                            pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                             required
                         />
                     </fieldset>
@@ -71,9 +70,9 @@ function Profile({handleEditProfile, handleLogOut, errorMessage, successMessage}
                             <button className="profile__btn profile__btn_type_logout" type="submit" onClick={handleLogOut}>Выйти из аккаунта</button>
                         </>
                     ) : (
-                        <button className="profile__submit-btn" type="submit" disabled={!isValid && !(values.name !== currentUser.name || values.email !== currentUser.email)}>Сохранить
-                            <span className={`${errorMessage ? "register__error-message" : "register__success-message"}`}>{errorMessage || successMessage}</span>
-                        </button>
+                            <button className="profile__submit-btn" type="submit" disabled={!btnStatus}>Сохранить
+                                <span className={`${errorMessage ? "register__error-message" : "register__success-message"}`}>{errorMessage || successMessage}</span>
+                            </button>
                     )
                     }
                 </form>

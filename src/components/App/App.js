@@ -11,6 +11,7 @@ import { useState, useEffect, useCallback } from 'react';
 import mainApi from '../../utils/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
     const[loggedIn, setLoggedIn] = useState(JSON.parse(localStorage.getItem('loggedIn')));
@@ -125,16 +126,22 @@ function App() {
                   successMessage={successMessageProfile}
                 />
                 <Route path="/signup">
-                  <Register
-                    onRegister={handleRegister}
-                    errorMessage={errorMessageRegister}
-                  />  
+                  {!loggedIn
+                  ? <Register
+                      onRegister={handleRegister}
+                      errorMessage={errorMessageRegister}
+                    />  
+                  : <Redirect to='/'></Redirect>
+                  }
                 </Route>
                 <Route path="/signin">
-                  <Login
-                    onLogin={handleLogin}
-                    errorMessage={errorMessageLogin}
-                />
+                  {!loggedIn
+                  ?  <Login
+                       onLogin={handleLogin}
+                       errorMessage={errorMessageLogin}
+                     />
+                  :  <Redirect to='/'></Redirect> 
+                  } 
                 </Route>
                 <Route path="*">
                   <PageNotFound/>

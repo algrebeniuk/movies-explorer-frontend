@@ -15,6 +15,15 @@
     height: 36px;
 }
 
+.movies__btn_blocked {
+    display: none;
+}
+
+.movies__error {
+    display: flex;
+    justify-content: space-around;
+}
+
 @media screen and (max-width: 768px) {
     .movies__btn {
         width: calc(100% - 60px);

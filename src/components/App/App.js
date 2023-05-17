@@ -61,7 +61,7 @@ function App() {
             localStorage.setItem('jwt', res.token);
             localStorage.setItem('loggedIn', true);
             handleCheckToken();
-            history.push('/profile');
+            history.push('/movies');
             setErrorMessageLogin('');
           }
         })

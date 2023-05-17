@@ -52,6 +52,7 @@ function RegisterForm( {onRegister, errorMessage} ) {
                     placeholder="Введите почту"
                     onChange={handleChange}
                     value={values.email || ""}
+                    pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
                 />
                 <span className={`${errors.email ? "register-form__error register-form__error_active" : "register-form__error"}`}>Что-то пошло не так...</span>
             </fieldset>

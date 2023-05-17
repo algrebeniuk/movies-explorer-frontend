@@ -1,6 +1,4 @@
-import AuthForm from "../AuthForm/AuthForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
-import {useFormWithValidation} from '../FormValidation/FormValidation'
 
 function Register({onRegister, errorMessage}) {
     
